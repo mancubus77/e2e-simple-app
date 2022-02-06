@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vran
+  namespace: vran
+spec:
+  selector:
+    matchLabels:
+      app: vran
+  replicas: 1 
+  template:
+    metadata:
+      labels:
+        app: vran
+      annotations:
+        k8s.v1.cni.cncf.io/networks: uplane
+    spec:
+      containers:
+      - name: hello-world-pod
+        image: quay.io/openshifttest/hello-openshift:multiarch
+        ports: 
+        - containerPort: 8080
+        - containerPort: 8888
